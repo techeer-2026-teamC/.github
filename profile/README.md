@@ -125,6 +125,8 @@ flowchart LR
 Prometheus·Grafana에서 요청률·p95·오류, SSE 연결 수, Outbox 대기·재시도·최장 지연, DB 연결, Redis 메모리와 GC를 관측합니다.
 **DAU 10만과 출퇴근 집중 트래픽은 설계 가정**입니다. 현재 로컬 구성의 처리 용량이나 운영 고가용성을 검증한 수치가 아닙니다.
 
+[Figma에서 서비스·관측 아키텍처 보기](https://www.figma.com/board/TRGHDXwe8ThtE5dQviUPCG) · [서버 동작 흐름](https://www.notion.so/3dc226545d158187adedef9de21d6696)
+
 ## ✅ 확인한 것과 다음 검증
 
 | 항목 | 확인 범위 |
@@ -138,9 +140,9 @@ Prometheus·Grafana에서 요청률·p95·오류, SSE 연결 수, Outbox 대기�
 | 이번 부하 테스트 | **실행하지 않음.** 시나리오·관측 지표·비교 기준을 [Notion 계획](https://www.notion.so/3dc226545d1581ddbd30ff7479185476)에 정리 |
 
 <details>
-<summary><strong>코드 반영·CI 상태 · 2026-09-15 기준</strong></summary>
+<summary><strong>코드 반영·CI 상태 · 2026-09-21 확인</strong></summary>
 
-- **백엔드:** 16개 PR이 `main`에 병합됐습니다. 검증한 코드와 최종 `4c6d1a9`의 트리가 같고, [해당 main의 GitHub CI](https://github.com/techeer-2026-teamC/carpool/actions/runs/34928324351)가 성공했습니다. 배포 작업은 실행하지 않았습니다.
+- **백엔드:** 16개 기능 PR이 `main`에 병합됐습니다. 9월 15일 검증한 코드와 기능 병합 커밋 `4c6d1a9`의 트리가 같고, [해당 main의 GitHub CI](https://github.com/techeer-2026-teamC/carpool/actions/runs/34928324351)가 성공했습니다. 이후 문서 변경은 기능 검증과 구분합니다. 배포 작업은 실행하지 않았습니다.
 - **프론트엔드:** [PR #8–#19](https://github.com/techeer-2026-teamC/carpool-front/pulls)는 리뷰 가능한 상태이며 아직 병합하지 않았습니다. 아래 실행 안내는 누적 구현이 있는 `pr/moa-front-12-docs` 브랜치를 사용합니다.
 - **프론트 원격 CI:** workflow와 로컬 검증은 준비됐지만 GitHub 실행이 생성되지 않는 원인은 아직 확정하지 못했습니다. 원격 CI 통과로 표기하지 않습니다.
 - 테스트 계정과 일부 신청 데이터는 로컬 API로 준비했습니다. 기능 테스트·화면 검증과 부하 측정은 구분합니다.
@@ -174,8 +176,12 @@ npm run dev
 | --- | --- |
 | [백엔드 로컬 실행](https://github.com/techeer-2026-teamC/carpool/blob/main/docs/moa-local.md) | 프로세스·DB·Redis·관측 환경과 테스트 실행 |
 | [프론트엔드 안내](https://github.com/techeer-2026-teamC/carpool-front/blob/pr/moa-front-12-docs/README.md) | 화면별 모듈 역할, 실행 방법, 검증 범위 |
-| [Notion 기술 문서](https://www.notion.so/3dc226545d1581feae7fe91dbd0c68dd) | 서비스 범위와 설계 결정, 관련 문서 탐색 |
+| [Notion 기술 문서](https://www.notion.so/3dc226545d1581feae7fe91dbd0c68dd) | 도메인·핵심 객체·서버 흐름·API 명세·운영 및 설계 결정 |
+| [ERD와 데이터 사전](https://www.notion.so/3dc226545d15811c984cd7cd09d107de) | 17개 테이블의 실제 제약·논리 관계·인덱스 |
+| [Figma 시스템 아키텍처](https://www.figma.com/board/TRGHDXwe8ThtE5dQviUPCG) | API 2개·워커·저장소와 Prometheus 수집 흐름 |
 | [부하 테스트 계획](https://www.notion.so/3dc226545d1581ddbd30ff7479185476) | 출퇴근 집중·정원 경합·알림 복구·캐시 비교 시나리오 |
+| [이력서 기술 경험 3가지](https://www.notion.so/3e2226545d15819d806ecdde0673529e) | 문제발견·해결·결과와 측정 근거의 범위 |
+| [운영 전 법적 검토](https://www.notion.so/3e2226545d1581278778ec9a770bc75f) | 카풀·택시 합승·위치정보의 요건과 현재 구현의 차이 |
 
 ---
 
