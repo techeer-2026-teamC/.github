@@ -6,7 +6,7 @@
 
 출퇴근 카풀과 택시 동승을 **검색 → 신청·승인 → 만남**으로 연결합니다.
 
-[백엔드 코드](https://github.com/techeer-2026-teamC/carpool) · [프론트엔드 코드](https://github.com/techeer-2026-teamC/carpool-front/tree/pr/moa-front-12-docs) · [기술 문서](https://www.notion.so/3dc226545d1581feae7fe91dbd0c68dd) · [부하 테스트 계획](https://www.notion.so/3dc226545d1581ddbd30ff7479185476)
+[백엔드 코드](https://github.com/techeer-2026-teamC/carpool) · [프론트엔드 코드](https://github.com/techeer-2026-teamC/carpool-front) · [기술 문서](https://www.notion.so/3dc226545d1581feae7fe91dbd0c68dd) · [부하 테스트 계획](https://www.notion.so/3dc226545d1581ddbd30ff7479185476)
 
 ![Java 17](https://img.shields.io/badge/Java-17-214F40?style=flat-square)
 ![Spring Boot 4](https://img.shields.io/badge/Spring_Boot-4-6DB33F?style=flat-square&logo=springboot&logoColor=white)
@@ -131,20 +131,20 @@ Prometheus·Grafana에서 요청률·p95·오류, SSE 연결 수, Outbox 대기�
 
 | 항목 | 확인 범위 |
 | --- | --- |
-| 백엔드 | 기능 테스트 **159개 통과**, 실제 PostgreSQL/PostGIS·Redis 통합 검증 포함 |
-| 분산 실행 | API 2개·워커 1개 기동, 서로 다른 API의 SSE 연결에서 같은 알림 ID 수신 |
-| 관측 환경 | Prometheus **6개 타깃 UP**, Grafana 정상 응답과 **10개 패널** 구성 |
-| 프론트엔드 | Node 22 테스트 **40개 통과**, Vite 프로덕션 빌드 성공 |
-| 실제 브라우저 | 등록·검색·신청·모집자 승인·정원 반영, SSE 수신·읽음, 만남 완료·택시 분담, 모바일 화면 |
-| 위치 보조 기능 | 가짜 좌표의 공유·중지 확인. 실기기 GPS 이동·권한 팝업은 미검증 |
+| 백엔드 | **2026-09-21: 186개 테스트 통과**, 실패·스킵 0. 실제 PostgreSQL/PostGIS·Redis 통합 검증 포함 |
+| 분산 실행 | 2026-09-15: API 2개·워커 1개 기동, 서로 다른 API의 SSE 연결에서 같은 알림 ID 수신 |
+| 관측 환경 | 2026-09-15: Prometheus **6개 타깃 UP**, Grafana 정상 응답과 **10개 패널** 구성 |
+| 프론트엔드 | **2026-09-21: Node 22 테스트 49개 통과**, Vite 프로덕션 빌드 성공 |
+| 실제 브라우저 | 2026-09-15: 등록·검색·신청·모집자 승인·정원 반영, SSE 수신·읽음, 만남 완료·택시 분담, 모바일 화면 |
+| 위치 API 연동 | 2026-09-21: 실제 HTTP·STOMP에서 가짜 좌표의 공유·중지·재시작과 이전 요청 차단 확인. 실기기 GPS 이동·권한 팝업은 미검증 |
 | 이번 부하 테스트 | **실행하지 않음.** 시나리오·관측 지표·비교 기준을 [Notion 계획](https://www.notion.so/3dc226545d1581ddbd30ff7479185476)에 정리 |
 
 <details>
 <summary><strong>코드 반영·CI 상태 · 2026-09-21 확인</strong></summary>
 
-- **백엔드:** 16개 기능 PR이 `main`에 병합됐습니다. 9월 15일 검증한 코드와 기능 병합 커밋 `4c6d1a9`의 트리가 같고, [해당 main의 GitHub CI](https://github.com/techeer-2026-teamC/carpool/actions/runs/34928324351)가 성공했습니다. 이후 문서 변경은 기능 검증과 구분합니다. 배포 작업은 실행하지 않았습니다.
-- **프론트엔드:** [PR #8–#19](https://github.com/techeer-2026-teamC/carpool-front/pulls)는 리뷰 가능한 상태이며 아직 병합하지 않았습니다. 아래 실행 안내는 누적 구현이 있는 `pr/moa-front-12-docs` 브랜치를 사용합니다.
-- **프론트 원격 CI:** workflow와 로컬 검증은 준비됐지만 GitHub 실행이 생성되지 않는 원인은 아직 확정하지 못했습니다. 원격 CI 통과로 표기하지 않습니다.
+- **백엔드:** 기능 구현에 이어 [수정 PR #162–#169](https://github.com/techeer-2026-teamC/carpool/pulls?q=is%3Apr+is%3Amerged)가 `main`에 병합됐습니다. `main@a334837`은 186개 테스트를 통과한 코드와 같고, [병합 후 CI](https://github.com/techeer-2026-teamC/carpool/actions/runs/35563997538)도 성공했습니다. GitHub Actions 배포 작업은 제거했으며 배포 작업은 실행하지 않았습니다.
+- **프론트엔드:** [PR #8–#19와 CI PR #20](https://github.com/techeer-2026-teamC/carpool-front/pulls?q=is%3Apr+is%3Amerged)을 `main@08bf67b`에 병합했습니다. 각 PR의 원격 검증과 [최종 main의 49개 테스트·빌드](https://github.com/techeer-2026-teamC/carpool-front/actions/runs/35564576077)가 성공했습니다. 아래 실행 안내는 기본 브랜치를 사용합니다.
+- **CI 범위:** 프론트 PR·push·수동 실행에서 설치·테스트·빌드를 검사합니다. 백엔드는 빌드·테스트·의존성을 검사합니다. 운영 배포와 부하 테스트는 실행하지 않았습니다.
 - 테스트 계정과 일부 신청 데이터는 로컬 API로 준비했습니다. 기능 테스트·화면 검증과 부하 측정은 구분합니다.
 
 </details>
@@ -162,7 +162,7 @@ docker compose -f docker-compose.moa.yml --profile monitoring up -d --build
 다른 터미널에서 프론트엔드를 실행합니다.
 
 ```bash
-git clone --branch pr/moa-front-12-docs https://github.com/techeer-2026-teamC/carpool-front.git moa-front
+git clone https://github.com/techeer-2026-teamC/carpool-front.git moa-front
 cd moa-front
 npm ci
 npm test
@@ -175,7 +175,7 @@ npm run dev
 | 더 알아보기 | 내용 |
 | --- | --- |
 | [백엔드 로컬 실행](https://github.com/techeer-2026-teamC/carpool/blob/main/docs/moa-local.md) | 프로세스·DB·Redis·관측 환경과 테스트 실행 |
-| [프론트엔드 안내](https://github.com/techeer-2026-teamC/carpool-front/blob/pr/moa-front-12-docs/README.md) | 화면별 모듈 역할, 실행 방법, 검증 범위 |
+| [프론트엔드 안내](https://github.com/techeer-2026-teamC/carpool-front/blob/main/README.md) | 화면별 모듈 역할, 실행 방법, 검증 범위 |
 | [Notion 기술 문서](https://www.notion.so/3dc226545d1581feae7fe91dbd0c68dd) | 도메인·핵심 객체·서버 흐름·API 명세·운영 및 설계 결정 |
 | [ERD와 데이터 사전](https://www.notion.so/3dc226545d15811c984cd7cd09d107de) | 17개 테이블의 실제 제약·논리 관계·인덱스 |
 | [Figma 시스템 아키텍처](https://www.figma.com/board/TRGHDXwe8ThtE5dQviUPCG) | API 2개·워커·저장소와 Prometheus 수집 흐름 |
